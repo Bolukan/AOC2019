@@ -2,14 +2,17 @@
 #define HELPER_H
 
 #include <Arduino.h>
+#include <FS.h>
 
 #define CALLBACK_SIGNATURE std::function<void(const char *)> callback
+#define INPUTBUFFER 80
 
 class Helper
 {
 public:
   Helper(CALLBACK_SIGNATURE);
-  void SplitString(const char *str, const char *delimiters);
+  void SplitStream(fs::File& stream);
+  // void SplitString(const char *str, const char *delimiters);
   int InputCounter = 0;
 private:
   CALLBACK_SIGNATURE;

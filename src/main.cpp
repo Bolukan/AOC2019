@@ -6,11 +6,12 @@
 #include <ESP8266mDNS.h>
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
+#include <FS.h>
 
-#include <../input/input201901.h>
 #include <dayAOC201901.h>
 
 #define APP_NAME "Advent of Code 2019"
+#define FILENAME "/input201901"
 
 // wifi
 #ifndef SECRETS_H
@@ -133,13 +134,11 @@ void setup()
   SetupWiFi();
   SetupOTA();
 
-  // Serial.printf("Size of input: %d\n", strlen(input201801));
-
-  DayAOC201901 day(input201901);
+  DayAOC201901 day(FILENAME);
   day.Part1();
   day.Part2();
-}
 
+}
 
 void loop()
 {

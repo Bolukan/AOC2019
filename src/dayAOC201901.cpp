@@ -1,7 +1,23 @@
 #include <dayAOC201901.h>
 #define DELIMITERS "\r\n"
 
-DayAOC201901::DayAOC201901(const char *inputfile)
+DayAOC201901::DayAOC201901(const char* inputfile)
+    : _inputfile(inputfile),
+      _helper(std::bind(&DayAOC201901::Process, this, std::placeholders::_1))
+{
+  SPIFFS.begin();
+  fs::File _inputstream = SPIFFS.open(_inputfile, "r");
+  _helper.SplitStream(_inputstream);
+  _inputstream.close();
+
+  // Output statistics
+  Serial.println("Statistics input file:");
+  Serial.printf("# input lines: %d\n", _helper.InputCounter);
+  Serial.printf("Sum of input (total mass): %d\n", _totalinputmass);
+}
+
+/*
+DayAOC201901::DayAOC201901(const char* inputfile)
     : _inputfile(inputfile),
       _helper(std::bind(&DayAOC201901::Process, this, std::placeholders::_1))
 {
@@ -13,7 +29,7 @@ DayAOC201901::DayAOC201901(const char *inputfile)
   Serial.printf("# input lines: %d\n", _helper.InputCounter);
   Serial.printf("Sum of input (total mass): %d\n", _totalinputmass);
 }
-
+*/
 void DayAOC201901::Process(const char *input)
 {
   int mass = atoi(input);

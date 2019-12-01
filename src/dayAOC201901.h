@@ -2,11 +2,13 @@
 #define DAYAOC201901_H
 
 #include <Arduino.h>
+#include <FS.h>
 #include <helper.h>
 
 class DayAOC201901
 {
 public:
+  // DayAOC201901(const char *inputfile);
   DayAOC201901(const char *inputfile);
   void Process(const char *input);
   void Part1();
@@ -14,6 +16,7 @@ public:
 
 private:
   const char *_inputfile;
+  fs::File _inputstream;
   Helper _helper;
   int _totalinputmass = 0;
 
